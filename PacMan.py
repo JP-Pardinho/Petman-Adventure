@@ -613,8 +613,8 @@ def main():
 
                 # Fantasma 4
                     
-                if distancia < 30:
-                    intencao_f4 = distancia_perseguidor(xJogador, yJogador, xFantasma4, yFantasma4)
+
+                intencao_f4 = distancia_perseguidor(xJogador, yJogador, xFantasma4, yFantasma4)
 
 
                 if intencao_f4 == CIMA:
