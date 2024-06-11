@@ -129,7 +129,10 @@ def distancia(xPersonagem, yPersonagem, xFantasma, yFantasma):
     distancia_esquerda  = ((xFantasma - xPersonagem - 32) ** 2 + (yFantasma - yPersonagem) ** 2) ** (1/2)
     distancia_direita   = ((xFantasma - xPersonagem + 32) ** 2 + (yFantasma - yPersonagem) ** 2) ** (1/2)
 
-    direcao = [distancia_cima, distancia_baixo, distancia_esquerda, distancia_direita]
+    distancias = [distancia_cima, distancia_baixo, distancia_esquerda, distancia_direita]
+
+    while True:
+        return distancias
 
 def distancia_perseguidor(xPersonagem, yPersonagem, xFantasma, yFantasma):
     """
@@ -359,6 +362,7 @@ def main():
     vitoria                     = 2670
     vida                        = 3
 
+
     # Variaveis tela abertura
     larguraRetangulo    = 100
     alturaRetangulo     = 40
@@ -426,6 +430,19 @@ def main():
         if botaoPressionado and botao == 1 and opcaoEscolhida == 1:
             
             while pontos < vitoria and vida > 0:   
+
+                # Variaveis calculo distancia
+                veficacao3 = distancia(xJogador, yJogador, xFantasma3, yFantasma3)
+                distancia_cima3     = veficacao3[0]
+                distancia_baixo3    = veficacao3[1]
+                distancia_esquerda3 = veficacao3[2]
+                distancia_direita3  = veficacao3[3]
+
+                veficacao4 = distancia(xJogador, yJogador, xFantasma4, yFantasma4)
+                distancia_cima4     = veficacao3[0]
+                distancia_baixo4    = veficacao3[1]
+                distancia_esquerda4 = veficacao3[2]
+                distancia_direita4  = veficacao3[3]
                 
                 if teclaPressionada(K_ESCAPE):
                     finalizaJogo()
@@ -508,7 +525,7 @@ def main():
                     tocaSom(som_gato_morrendo)
 
 
-                # Fantasma aleatorio 1
+                # Fantasma 1 - Aleatorio
                 
                 if intencao_f1 == CIMA and movimentacao(xFantasma1, yFantasma1, intencao_f1):
                     imagemFantasma1 = caramelo_cima
@@ -543,9 +560,8 @@ def main():
                 else:
                     intencao_f1 = random.randint(CIMA, DIREITA)
 
-            
 
-                # Fantasma aleatorio 2 
+                # Fantasma 2 - Aleatorio  
 
                 if intencao_f2 == CIMA and movimentacao(xFantasma2, yFantasma2, intencao_f2):
                     imagemFantasma2 = husky_cima
@@ -579,72 +595,138 @@ def main():
                 else:
                     intencao_f2 = random.randint(CIMA, DIREITA)
 
-                # Fantasma 3 
 
-                intencao_f3 = distancia_perseguidor(xJogador, yJogador, xFantasma3, yFantasma3)
+                # Fantasma 3 - Perseguidor
 
-                if intencao_f3 == CIMA:
-                    imagemFantasma3 = pastor_cima
-                    direcao_f3 = intencao_f3
+                if distancia_cima3 < 150 or distancia_baixo3 < 150 or distancia_esquerda3 < 150 or distancia_direita3 < 150:
 
-                elif intencao_f3 == BAIXO:
-                    imagemFantasma3 = pastor_baixo
-                    direcao_f3 = intencao_f3
-
-                elif intencao_f3 == ESQUERDA:
-                    imagemFantasma3 = pastor_esquerda
-                    direcao_f3 = intencao_f3
-
-                elif intencao_f3 == DIREITA:
-                    imagemFantasma3 = pastor_direita
-                    direcao_f3 = intencao_f3
-                
-                if direcao_f3 == CIMA:
-                    yFantasma3 -= 2
+                    intencao_f3 = distancia_perseguidor(xJogador, yJogador, xFantasma3, yFantasma3)
                     
-                elif direcao_f3 == BAIXO:
-                    yFantasma3 += 2
-                    
-                elif direcao_f3 == ESQUERDA:
-                    xFantasma3 -= 2
+                    if intencao_f3 == CIMA:
+                        imagemFantasma3 = pastor_cima
+                        direcao_f3 = intencao_f3
 
-                elif direcao_f3 == DIREITA:
-                    xFantasma3 += 2
+                    elif intencao_f3 == BAIXO:
+                        imagemFantasma3 = pastor_baixo
+                        direcao_f3 = intencao_f3
 
-                # Fantasma 4
+                    elif intencao_f3 == ESQUERDA:
+                        imagemFantasma3 = pastor_esquerda
+                        direcao_f3 = intencao_f3
+
+                    elif intencao_f3 == DIREITA:
+                        imagemFantasma3 = pastor_direita
+                        direcao_f3 = intencao_f3
                     
-                if distancia < 30:
+                    if direcao_f3 == CIMA:
+                        yFantasma3 -= 2
+                        
+                    elif direcao_f3 == BAIXO:
+                        yFantasma3 += 2
+                        
+                    elif direcao_f3 == ESQUERDA:
+                        xFantasma3 -= 2
+
+                    elif direcao_f3 == DIREITA:
+                        xFantasma3 += 2
+                else: 
+                    if intencao_f3 == CIMA and movimentacao(xFantasma3, yFantasma3, intencao_f3):
+                        imagemFantasma3 = pastor_cima
+                        direcao_f3 = intencao_f3
+                    elif intencao_f3 == BAIXO and movimentacao(xFantasma3, yFantasma3, intencao_f3):
+                        imagemFantasma3 = pastor_baixo                    
+                        direcao_f3 = intencao_f3
+                    elif intencao_f3 == ESQUERDA and movimentacao(xFantasma3, yFantasma3, intencao_f3):
+                        imagemFantasma3 = pastor_esquerda                        
+                        direcao_f3 = intencao_f3
+                    elif intencao_f3 == DIREITA and movimentacao(xFantasma3, yFantasma3, intencao_f3):
+                        imagemFantasma3 = pastor_direita                        
+                        direcao_f3 = intencao_f3
+
+                    if direcao_f3 == CIMA and movimentacao(xFantasma3, yFantasma3, direcao_f3):
+                        yFantasma3 -= 2
+                        if xFantasma3 % 32 == 0 and yFantasma3 % 32 == 0:
+                            intencao_f3 = sorteio_diferente(CIMA)
+                    elif direcao_f3 == BAIXO and movimentacao(xFantasma3, yFantasma3, direcao_f3):
+                        yFantasma3 += 2
+                        if xFantasma3 % 32 == 0 and yFantasma3 % 32 == 0:
+                            intencao_f3  = sorteio_diferente(BAIXO)
+                    elif direcao_f3 == ESQUERDA and movimentacao(xFantasma3, yFantasma3, direcao_f3):
+                        xFantasma3 -= 2
+                        if xFantasma3 % 32 == 0 and yFantasma3 % 32 == 0:
+                            intencao_f3 = sorteio_diferente(ESQUERDA)
+                    elif direcao_f3 == DIREITA and movimentacao(xFantasma3, yFantasma3, direcao_f3):
+                        xFantasma3 += 2
+                        if xFantasma3 % 32 == 0 and yFantasma3 % 32 == 0:
+                            intencao_f3 = sorteio_diferente(DIREITA)
+                    else:
+                        intencao_f3 = random.randint(CIMA, DIREITA)
+
+                # Fantasma 4 - Perseguidor
+        
+                if distancia_cima4 < 150 or distancia_baixo4 < 150 or distancia_esquerda4 < 150 or distancia_direita4 < 150:
                     intencao_f4 = distancia_perseguidor(xJogador, yJogador, xFantasma4, yFantasma4)
 
+                    if intencao_f4 == CIMA:
+                        imagemFantasma4 = cachorro_cima
+                        direcao_f4 = intencao_f4
 
-                if intencao_f4 == CIMA:
-                    imagemFantasma4 = cachorro_cima
-                    direcao_f4 = intencao_f4
+                    elif intencao_f4 == BAIXO:
+                        imagemFantasma4 = cachorro_baixo
+                        direcao_f4 = intencao_f4
 
-                elif intencao_f4 == BAIXO:
-                    imagemFantasma4 = cachorro_baixo
-                    direcao_f4 = intencao_f4
+                    elif intencao_f4 == ESQUERDA:
+                        imagemFantasma4 = cachorro_esquerda
+                        direcao_f4 = intencao_f4
 
-                elif intencao_f4 == ESQUERDA:
-                    imagemFantasma4 = cachorro_esquerda
-                    direcao_f4 = intencao_f4
+                    elif intencao_f4 == DIREITA:
+                        imagemFantasma4 = cachorro_direita
+                        direcao_f4 = intencao_f4
+                    
+                    if direcao_f4 == CIMA:
+                        yFantasma4 -= 2
+                    
+                    elif direcao_f4 == BAIXO:
+                        yFantasma4 += 2
+                    
+                    elif direcao_f4 == ESQUERDA:
+                        xFantasma4 -= 2
 
-                elif intencao_f4 == DIREITA:
-                    imagemFantasma4 = cachorro_direita
-                    direcao_f4 = intencao_f4
-                
-                
-                if direcao_f4 == CIMA:
-                    yFantasma4 -= 2
-                
-                elif direcao_f4 == BAIXO:
-                    yFantasma4 += 2
-                
-                elif direcao_f4 == ESQUERDA:
-                    xFantasma4 -= 2
+                    elif direcao_f4 == DIREITA:
+                        xFantasma4 += 2
+                else:
+                    if intencao_f4 == CIMA and movimentacao(xFantasma4, yFantasma4, intencao_f4):
+                        imagemFantasma4 = cachorro_cima
+                        direcao_f4 = intencao_f4
+                    elif intencao_f4 == BAIXO and movimentacao(xFantasma4, yFantasma4, intencao_f4):
+                        imagemFantasma4 = cachorro_baixo                    
+                        direcao_f4 = intencao_f4
+                    elif intencao_f4 == ESQUERDA and movimentacao(xFantasma4, yFantasma4, intencao_f4):
+                        imagemFantasma4 = cachorro_esquerda                        
+                        direcao_f4 = intencao_f4
+                    elif intencao_f4 == DIREITA and movimentacao(xFantasma4, yFantasma4, intencao_f4):
+                        imagemFantasma4 = cachorro_direita                        
+                        direcao_f4 = intencao_f4
 
-                elif direcao_f4 == DIREITA:
-                    xFantasma4 += 2
+                    if direcao_f4 == CIMA and movimentacao(xFantasma4, yFantasma4, direcao_f4):
+                        yFantasma4 -= 2
+                        if xFantasma4 % 32 == 0 and yFantasma4 % 32 == 0:
+                            intencao_f4 = sorteio_diferente(CIMA)
+                    elif direcao_f4 == BAIXO and movimentacao(xFantasma4, yFantasma4, direcao_f4):
+                        yFantasma4 += 2
+                        if xFantasma4 % 32 == 0 and yFantasma4 % 32 == 0:
+                            intencao_f4  = sorteio_diferente(BAIXO)
+                    elif direcao_f4 == ESQUERDA and movimentacao(xFantasma4, yFantasma4, direcao_f4):
+                        xFantasma4 -= 2
+                        if xFantasma4 % 32 == 0 and yFantasma4 % 32 == 0:
+                            intencao_f4 = sorteio_diferente(ESQUERDA)
+                    elif direcao_f4 == DIREITA and movimentacao(xFantasma4, yFantasma4, direcao_f4):
+                        xFantasma4 += 2
+                        if xFantasma4 % 32 == 0 and yFantasma4 % 32 == 0:
+                            intencao_f4 = sorteio_diferente(DIREITA)
+                    else:
+                        intencao_f4 = random.randint(CIMA, DIREITA)
+
 
 
                 if xJogador == xFantasma1 and yJogador == yFantasma1 or xJogador == xFantasma2 and yJogador == yFantasma2 or xJogador == xFantasma3 and yJogador == yFantasma3 or xJogador == xFantasma4 and yJogador == yFantasma4:
