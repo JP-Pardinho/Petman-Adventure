@@ -123,6 +123,13 @@ def sorteio_diferente(intencao):
             break
     return sorteio
 
+def distancia(xPersonagem, yPersonagem, xFantasma, yFantasma):
+    distancia_cima      = ((xFantasma - xPersonagem) ** 2 + (yFantasma - yPersonagem - 32) ** 2) ** (1/2)
+    distancia_baixo     = ((xFantasma - xPersonagem) ** 2 + (yFantasma - yPersonagem + 32) ** 2) ** (1/2)
+    distancia_esquerda  = ((xFantasma - xPersonagem - 32) ** 2 + (yFantasma - yPersonagem) ** 2) ** (1/2)
+    distancia_direita   = ((xFantasma - xPersonagem + 32) ** 2 + (yFantasma - yPersonagem) ** 2) ** (1/2)
+
+    direcao = [distancia_cima, distancia_baixo, distancia_esquerda, distancia_direita]
 
 def distancia_perseguidor(xPersonagem, yPersonagem, xFantasma, yFantasma):
     """
@@ -139,8 +146,6 @@ def distancia_perseguidor(xPersonagem, yPersonagem, xFantasma, yFantasma):
         direcoes[pos][1] = melhor jogada para se ir até o gato
     """
     pos = 0
-
-    distancia_atual = ((xPersonagem - xFantasma) ** 2 + (yPersonagem - yFantasma) ** 2) ** (1/2)
 
     distancia_cima      = ((xFantasma - xPersonagem) ** 2 + (yFantasma - yPersonagem - 32) ** 2) ** (1/2)
     distancia_baixo     = ((xFantasma - xPersonagem) ** 2 + (yFantasma - yPersonagem + 32) ** 2) ** (1/2)
@@ -607,7 +612,9 @@ def main():
                     xFantasma3 += 2
 
                 # Fantasma 4
-                intencao_f4 = distancia_perseguidor(xJogador, yJogador, xFantasma4, yFantasma4)
+                    
+                if distancia < 30:
+                    intencao_f4 = distancia_perseguidor(xJogador, yJogador, xFantasma4, yFantasma4)
 
 
                 if intencao_f4 == CIMA:
