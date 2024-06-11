@@ -439,10 +439,10 @@ def main():
                 distancia_direita3  = veficacao3[3]
 
                 veficacao4 = distancia(xJogador, yJogador, xFantasma4, yFantasma4)
-                distancia_cima4     = veficacao3[0]
-                distancia_baixo4    = veficacao3[1]
-                distancia_esquerda4 = veficacao3[2]
-                distancia_direita4  = veficacao3[3]
+                distancia_cima4     = veficacao4[0]
+                distancia_baixo4    = veficacao4[1]
+                distancia_esquerda4 = veficacao4[2]
+                distancia_direita4  = veficacao4[3]
                 
                 if teclaPressionada(K_ESCAPE):
                     finalizaJogo()
@@ -666,7 +666,7 @@ def main():
         
                 if distancia_cima4 < 150 or distancia_baixo4 < 150 or distancia_esquerda4 < 150 or distancia_direita4 < 150:
                     intencao_f4 = distancia_perseguidor(xJogador, yJogador, xFantasma4, yFantasma4)
-
+                    
                     if intencao_f4 == CIMA:
                         imagemFantasma4 = cachorro_cima
                         direcao_f4 = intencao_f4
@@ -682,7 +682,12 @@ def main():
                     elif intencao_f4 == DIREITA:
                         imagemFantasma4 = cachorro_direita
                         direcao_f4 = intencao_f4
-                    
+
+                    print(f"cima: {distancia_cima4}")
+                    print(f"baixo: {distancia_baixo4}")
+                    print(f"esquerda: {distancia_esquerda4}")
+                    print(f"direita: {distancia_direita4}")
+
                     if direcao_f4 == CIMA:
                         yFantasma4 -= 2
                     
