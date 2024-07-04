@@ -618,6 +618,7 @@ def main():
                         imagemFantasma3 = pastor_direita
                         direcao_f3 = intencao_f3
                     
+<<<<<<< HEAD
                     if direcao_f3 == CIMA:
                         yFantasma3 -= 2
                         
@@ -670,6 +671,10 @@ def main():
                     if intencao_f4 == CIMA:
                         imagemFantasma4 = cachorro_cima
                         direcao_f4 = intencao_f4
+=======
+
+                intencao_f4 = distancia_perseguidor(xJogador, yJogador, xFantasma4, yFantasma4)
+>>>>>>> main
 
                     elif intencao_f4 == BAIXO:
                         imagemFantasma4 = cachorro_baixo
